@@ -89,9 +89,136 @@ const displayFeedBack = (req, res) => {
 
 }
 
+const DisplayEditMovie = (req, res) => {
+
+    let admin = "";
+    const name = req.session.admin.username;
+    name == "Dawood_Usman" ? admin = "Admin 1.0" : admin = "Admin 2.0";
+    const MovieID = req.params.MovieID;
+    sequelize.sync().then(() => {
+        movie.findOne({
+            where: {
+                MovieID: MovieID
+            }
+        }).then(movie => {
+            if (movie) {
+                res.render("admin/editMovie", { movie: movie, Name: name, Admin: admin });
+            }
+            else {
+                res.send("Invalid Credientials");
+            }
+
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+}
+
+const EditMovie = (req, res) => {
+    if (!req.file) {
+        return res.send("File Not Recieved!");
+    }
+
+    const MovieID = req.body.movieID;
+    const MovieName = req.body.movieName;
+    const MovieStatus = req.body.movieStatus;
+    const ParentalGuidance = req.body.moviePG;
+    const MovieIndustry = req.body.movieIndustry;
+    const MovieGenre = req.body.movieGenre;
+    const MovieDuration = req.body.movieDuration;
+    const MovieTrailer = req.body.movieTrailer;
+    const TicketPrice = req.body.ticketPrice;
+    const ShowDate = req.body.showDate;
+    const ShowTime = req.body.showTime;
+    const MoviePoster = req.file.originalname;
+
+    sequelize.sync().then(() => {
+        console.log('movie table created successfully!');
+        movie.update({
+            MovieName: MovieName,
+            MovieStatus: MovieStatus,
+            ParentalGuidance: ParentalGuidance,
+            MovieIndustry: MovieIndustry,
+            MovieGenre: MovieGenre,
+            MovieDuration: MovieDuration,
+            MovieTrailer: MovieTrailer,
+            TicketPrice: TicketPrice,
+            ShowDate: ShowDate,
+            ShowTime: ShowTime,
+            MoviePoster: MoviePoster
+        },
+            {
+                where: {
+                    MovieID: MovieID
+                }
+            }
+        ).then(resp => {
+            res.redirect("/admin/runningMovies");
+        }).catch((error) => {
+            console.error('Failed to update a new record : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+}
+
+const addMovie = (req, res) => {
+
+    if (!req.file) {
+        return res.send("File Not Recieved!");
+    }
+
+    const MovieID = req.body.movieID;
+    const MovieName = req.body.movieName;
+    const MovieStatus = req.body.movieStatus;
+    const ParentalGuidance = req.body.moviePG;
+    const MovieIndustry = req.body.movieIndustry;
+    const MovieGenre = req.body.movieGenre;
+    const MovieDuration = req.body.movieDuration;
+    const MovieTrailer = req.body.movieTrailer;
+    const TicketPrice = req.body.ticketPrice;
+    const ShowDate = req.body.showDate;
+    const ShowTime = req.body.showTime;
+    const MoviePoster = req.file.originalname;
+
+    sequelize.sync().then(() => {
+        console.log('movie table created successfully!');
+
+        movie.create({
+            MovieID: MovieID,
+            MovieName: MovieName,
+            MovieStatus: MovieStatus,
+            ParentalGuidance: ParentalGuidance,
+            MovieIndustry: MovieIndustry,
+            MovieGenre: MovieGenre,
+            MovieDuration: MovieDuration,
+            MovieTrailer: MovieTrailer,
+            TicketPrice: TicketPrice,
+            ShowDate: ShowDate,
+            ShowTime: ShowTime,
+            MoviePoster: MoviePoster
+        }).then(resp => {
+            res.redirect("/admin/runningMovies");
+        }).catch((error) => {
+            console.error('Failed to create a new record : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+}
+
 module.exports = {
     SignIn,
     displayUIAccordingly,
     displayCustomers,
-    displayFeedBack
+    displayFeedBack,
+    DisplayEditMovie,    
+    addMovie,
+    EditMovie
+    
 }
