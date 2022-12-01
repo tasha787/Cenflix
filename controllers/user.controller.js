@@ -64,8 +64,49 @@ const signUp = (req, res) => {
 
 }
 
+const sendVerificationCode = (req, res) => {
+    const userName = req.body.userName;
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const user = { userName: userName, email: email, password: password };
+    req.session.userData = user;
+
+    const givenSet = "abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    let code = "";
+    for (let i = 0; i < 5; i++) {
+        let pos = Math.floor(Math.random() * givenSet.length);
+        code += givenSet[pos];
+    }
+
+    req.session.code = code;
+
+    let mail = transporter.sendMail({
+        from: '"Cenflix" <yourscenflix@gmail.com>',
+        to: `${email}`,
+        subject: "Verification Code",
+        text: "Hello world?",
+        html: `<h1>Cenflix Verification Code!</h1>
+               <p><b>Your Code is : ${code}</b></p>`
+    });
+    res.render("user/verifyCode", { Email: email });
+
+}
+
+const verifyCode = (req, res) => {
+    const Code = req.body.code;
+    if (Code == req.session.code) {
+        res.redirect(307, "/user/signUpConfirm");
+    }
+    else {
+        req.session.code = null;
+        res.send("Wrong Verification Code!\nTry To SignUp Again...");
+    }
+}
 
 module.exports = {
     signIn,
-    signUp
+    signUp,
+    sendVerificationCode,
+    verifyCode
 }
