@@ -242,6 +242,12 @@ const BookMovie = (req, res) => {
     });
 }
 
+const logOut = (req, res) => {
+    req.session.user = null;
+    req.cookies.CurrentRole = "";
+    res.redirect("/cenflix");
+}
+
 module.exports = {
     signIn,
     signUp,
@@ -250,5 +256,6 @@ module.exports = {
     sendFeedBack,
     displayHomePage,
     DisplayBookMovie,
-    BookMovie
+    BookMovie,
+    logOut
 }
