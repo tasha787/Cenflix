@@ -1,0 +1,30 @@
+.filters {
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+    width: 82.5%;
+    margin: 1.5rem auto 1rem auto;
+}
+
+.searchBox {
+    width: 65%;
+}
+
+.selectBox {
+    width: 30%;
+    margin-top: auto;
+}
+
+#myInput {
+    width: 100%;
+}
+
+select {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+}
+
+table {
+    width: 80%;
+}
