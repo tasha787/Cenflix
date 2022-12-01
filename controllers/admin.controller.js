@@ -551,6 +551,56 @@ const displayFeaturedMoviesBookings = (req, res) => {
 
 }
 
+const displayMoviesHistory = (req, res) => {
+
+    let admin = "";
+    const name = req.session.admin.username;
+    name == "Dawood_Usman" ? admin = "Admin 1.0" : admin = "Admin 2.0";
+
+    sequelize.sync().then(() => {
+        movie.findAll({
+            where: {
+                MovieStatus: "Featured"
+            }
+        }).then(movieData => {
+            res.render("admin/moviesHistory", { movieData: movieData, Name: name, Admin: admin });
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+
+}
+
+const displayPaymentDetails = (req, res) => {
+
+    let admin = "";
+    const name = req.session.admin.username;
+    name == "Dawood_Usman" ? admin = "Admin 1.0" : admin = "Admin 2.0";
+
+    //select MovieName, ShowDate, ShowTime, TotalAmount as TicketPrice, count(MovieID)As TotalTickets, sum(TotalAmount)As TotalAmount from bookings group by MovieID; 
+    sequelize.sync().then(() => {
+        booking.findAll({
+            attributes: ['MovieName', 'ShowDate', 'ShowTime', ['TotalAmount', 'TicketPrice'], [sequelize.fn('count', sequelize.col('MovieID')), 'BookedSeats'], [sequelize.fn('sum', sequelize.col('TotalAmount')), 'TotalAmount']],
+            group: ["MovieID"],
+            where: {
+                BookingStatus: "Confirmed",
+            }
+        }).then(paymentDetails => {
+            res.render("admin/paymentDetails", { paymentDetails: paymentDetails, Name: name, Admin: admin });
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+
+}
+
+
 module.exports = {
     SignIn,
     displayDashBoard,
@@ -569,5 +619,7 @@ module.exports = {
     displayGenerateReport,
     generateReport,
     displayRunningMoviesBookings,
-    displayFeaturedMoviesBookings
+    displayFeaturedMoviesBookings,
+    displayMoviesHistory,
+    displayPaymentDetails
 }
