@@ -600,6 +600,11 @@ const displayPaymentDetails = (req, res) => {
 
 }
 
+const logOut = (req, res) => {
+    req.session.admin = null;
+    req.cookies.CurrentRole = "";
+    res.redirect("/cenflix");
+}
 
 module.exports = {
     SignIn,
@@ -621,5 +626,6 @@ module.exports = {
     displayRunningMoviesBookings,
     displayFeaturedMoviesBookings,
     displayMoviesHistory,
-    displayPaymentDetails
+    displayPaymentDetails,
+    logOut
 }
