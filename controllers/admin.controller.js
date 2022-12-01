@@ -51,7 +51,47 @@ const displayUIAccordingly = (req, res) => {
     res.render(`admin${req.url}`, { Name: name, Admin: admin });
 }
 
+const displayCustomers = (req, res) => {
+
+    let admin = "";
+    const name = req.session.admin.username;
+    name == "Dawood_Usman" ? admin = "Admin 1.0" : admin = "Admin 2.0";
+
+    sequelize.sync().then(() => {
+        userCredentials.findAll().then(customersData => {
+            res.render("admin/viewUsers", { customersData: customersData, Name: name, Admin: admin });
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+
+}
+
+const displayFeedBack = (req, res) => {
+
+    let admin = "";
+    const name = req.session.admin.username;
+    name == "Dawood_Usman" ? admin = "Admin 1.0" : admin = "Admin 2.0";
+
+    sequelize.sync().then(() => {
+        feedBack.findAll().then(customersFeedBack => {
+            res.render("admin/viewFeedBack", { customersFeedBack: customersFeedBack, Name: name, Admin: admin });
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+
+}
+
 module.exports = {
     SignIn,
-    displayUIAccordingly
+    displayUIAccordingly,
+    displayCustomers,
+    displayFeedBack
 }
