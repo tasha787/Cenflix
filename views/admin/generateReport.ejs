@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/partials/adminPanel.css">
+    <link rel="stylesheet" href="/css/admin/viewUsers.css">
+    <link rel="stylesheet" href="/css/partials/filters.css">
+
+    <script src="/js/adminPanel.js" defer></script>
+    <script src="/js/searching.js" defer></script>
+    <title>Document</title>
+    <style>
+        .btn {
+            text-decoration: none;
+            border: 2px solid #263238;
+            color: #263238;
+            padding: 10px;
+            display: inline-block;
+            border-radius: 5px;
+            margin: 25px 15px;
+        }
+
+        .btn:hover {
+            background-color: #263238;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="upload-slider">
+        <%- include("../partials/adminPanel") %>
+            <section class="home-section">
+                <div class="home-content">
+                    <i class='bx bx-menu'></i>
+                    <span class="text">Cenflix | Payment Details </span>
+                </div>
+                <div class="users-data">
+                    <table id="myTable">
+                        <tr>
+                            <th>MovieID</th>
+                            <th>MovieName</th>
+                            <th>ShowDate</th>
+                            <th>ShowTime</th>
+                            <th>TicketPrice</th>
+                            <th>TotalTicketsBooked</th>
+                            <th>TotalAmount</th>
+                        </tr>
+
+                        <% let i=0; %>
+                            <% paymentDetails.forEach(function(movie){ %>
+                                <tr>
+                                    <td>
+                                        <%=++i%>
+                                    </td>
+                                    <td>
+                                        <%=movie.MovieName%>
+                                    </td>
+                                    <td>
+                                        <%=movie.ShowDate%>
+                                    </td>
+                                    <td>
+                                        <%=movie.ShowTime%>
+                                    </td>
+                                    <td>
+                                        <%=movie.get('TicketPrice')%>rs
+                                    </td>
+                                    <td>
+                                        <%=movie.get('BookedSeats')%>
+                                    </td>
+                                    <td>
+                                        <%=movie.get('TotalAmount')%>rs
+                                    </td>
+                                </tr>
+                                <% }) %>
+                    </table>
+                </div>
+                <div style="text-align:center">
+                    <a href="/admin/printReport" class="btn" target="_blank">Generate Report</a>
+                </div>
+            </section>
+
+</body>
+
+</html>
