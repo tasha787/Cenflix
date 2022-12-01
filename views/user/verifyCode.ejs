@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/user/verifyCode.css">
+    <title>Cenflix</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <img src="/images/resources/cenflixLogo.png" alt="" height="53px" width="167px">
+    </div>
+    <div class="login-form">
+        <h1> Verify Your Account </h1>
+        <p id="para">Please Enter The Verification Code That We Sent To <br><b><%=Email%></b> In Order To
+            Activate Your
+            Account.</p>
+        <form action="/user/verifyCode" name="Login-Form" method="POST">
+            <!-- <div id="codeVar"><span><b>Verification Code*</b></span></div> -->
+            <input type="text" name="code" id="code" placeholder="Enter Your Code Here..."><br>
+            <input type="submit" value="Verify"><br>
+        </form>
+        <span>Not Recieved? <b><a href="" class="formAnchor">Resend Code</a></b> </span>
+    </div>
+</body>
+
+</html>

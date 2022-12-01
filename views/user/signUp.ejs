@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/user/signUp.css">
+    <title>Cenflix</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <img src="/images/resources/cenflixLogo.png" alt="" height="53px" width="167px">
+    </div>
+    <div class="login-form">
+        <div class="form-content">
+            <h1> SIGNUP </h1>
+            <form action="/user/signUp" name="Login-Form" method="POST" onsubmit="return validatePassword()">
+                <input type="text" name="userName" placeholder="User_Name" class="i-box" required><br>
+                <input type="email" name="email" placeholder="Email" class="i-box" required><br>
+                <input type="password" name="password" id="1" placeholder="Password" class="i-box" required><br>
+                <input type="password" name="CPassword" id="2" placeholder="Confirm Password" class="i-box" required><br>
+                <input type="submit" value="SignUp"><br>
+            </form>
+            <span>Already Registered? <b><a href="/user/signIn" class="formAnchor">Login Here</a></b> </span>
+        </div>
+    </div>
+    <script>
+        function validatePassword(){
+            const password = document.forms["Login-Form"]["password"].value;;
+            const confirmPassword = document.forms["Login-Form"]["CPassword"].value;;
+            
+            if(password != confirmPassword)
+            {
+                alert("Password & ConfirmPassword Are Not Matched!");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

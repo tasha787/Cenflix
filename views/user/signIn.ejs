@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/user/signIn.css">
+    <title>Cenflix</title>
+</head>
+
+<body>
+    <div class="navbar">
+        <img src="/images/resources/cenflixLogo.png" alt="" height="53px" width="167px">
+    </div>
+    <div class="login-form">
+        <div class="form-content">
+            <h1> LOGIN </h1>
+            <form action="/user/signIn" method="POST" name="Login-Form">
+                <input type="text" name="userName" id="Username" placeholder="Username" required><br>
+                <input type="password" name="password" id="Pass" placeholder="Password" required><br>
+                <input type="submit" value="Login"><br>
+            </form>
+            <span>New To Cenflix? <b><a href="/user/signUp" class="formAnchor">SignUp Now</a></b> </span>
+        </div>
+    </div>
+</body>
+
+</html>
