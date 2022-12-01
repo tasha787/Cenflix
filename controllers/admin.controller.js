@@ -362,6 +362,83 @@ const uploadSlider = (req, res) => {
     }
 }
 
+const displayGenerateReport = (req, res) => {
+    let admin = "";
+    const name = req.session.admin.username;
+    name == "Dawood_Usman" ? admin = "Admin 1.0" : admin = "Admin 2.0";
+
+    //select MovieName, ShowDate, ShowTime, TotalAmount as TicketPrice, count(MovieID)As TotalTickets, sum(TotalAmount)As TotalAmount from bookings group by MovieID; 
+    sequelize.sync().then(() => {
+        booking.findAll({
+            attributes: ['MovieName', 'ShowDate', 'ShowTime', ['TotalAmount', 'TicketPrice'], [sequelize.fn('count', sequelize.col('MovieID')), 'BookedSeats'], [sequelize.fn('sum', sequelize.col('TotalAmount')), 'TotalAmount']],
+            group: ["MovieID"],
+            where: {
+                BookingStatus: "Confirmed",
+            }
+        }).then(paymentDetails => {
+            res.render("admin/generateReport", { paymentDetails: paymentDetails, Name: name, Admin: admin });
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });   
+}
+
+const generateReport = (req, res) => {
+
+     
+
+    sequelize.sync().then(() => {
+        booking.findAll({
+            attributes: ['MovieName', 'ShowDate', 'ShowTime', ['TotalAmount', 'TicketPrice'], [sequelize.fn('count', sequelize.col('MovieID')), 'BookedSeats'], [sequelize.fn('sum', sequelize.col('TotalAmount')), 'TotalAmount']],
+            group: ["MovieID"],
+            where: {
+                BookingStatus: "Confirmed",
+            }
+        }).then(paymentDetails => {
+            res.render(
+                "admin/moviesReport",
+                {
+                    paymentDetails: paymentDetails
+                },
+                function (err, html) {
+                    pdf
+                        .create(html, options)
+                        .toFile("CenflixReports/MovieDetail.pdf", function (err, result) {
+                            if (err) return console.log("nikal jaa ", err);
+                            else {
+                                var allMoviesPdf = fs.readFileSync("CenflixReports/MovieDetail.pdf");
+                                var Report = fs.readFileSync("mail/mailBody.html");
+                                res.header("content-type", "application/pdf");
+                                res.send(allMoviesPdf);
+                                transporter.sendMail({
+                                    from: '"Cenflix" <yourscenflix@gmail.com>',
+                                    to: "dawoodusman370@gmail.com",
+                                    subject: "Cenflix Report",
+                                    text: "Hello world?",
+                                    html: Report,
+                                    attachments: [
+                                      {
+                                        filename: 'MovieDetail.pdf',
+                                        path: path.join(__dirname, "../CenflixReports/MovieDetail.pdf")
+                                      }]
+                                  });
+                            }
+                        });
+                }
+            );
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    }); 
+        
+}
+
 module.exports = {
     SignIn,
     displayUIAccordingly,
@@ -375,5 +452,7 @@ module.exports = {
     displayPendingMovies,
     confirmBooking,
     deleteBooking,
-    uploadSlider
+    uploadSlider,
+    displayGenerateReport,
+    generateReport
 }
