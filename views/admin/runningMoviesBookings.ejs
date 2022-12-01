@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/partials/adminPanel.css">
+    <link rel="stylesheet" href="/css/admin/viewUsers.css">
+    <link rel="stylesheet" href="/css/partials/filters.css">
+
+    <script src="/js/adminPanel.js" defer></script>
+    <script src="/js/searching.js" defer></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="upload-slider">
+        <%- include("../partials/adminPanel") %>
+            <section class="home-section">
+                <div class="home-content">
+                    <i class='bx bx-menu'></i>
+                    <span class="text">Cenflix | Bookings | Running Movies </span>
+                </div>
+                <div class="users-data">
+                    <div class="filters">
+                        <div class="selectBox">
+                            <select name="movies" id="movies">
+                                <option value="3-Idiots">3-Idiots</option>
+                                <option value="Maula Jatt">Maula Jatt</option>
+                                <option value="PK">PK</option>
+                            </select>
+                        </div>
+                        <div class="searchBox">
+                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names...">
+                        </div>
+                    </div>
+                    <table id="myTable">
+                        <tr>
+                            <th>ID</th>
+                            <th>UserName</th>
+                            <th>MovieName</th>
+                            <th>ShowDate</th>
+                            <th>ShowTime</th>
+                            <th>SeatNo</th>
+                            <th>TicketPrice</th>
+                        </tr>
+
+
+                        <% let i=0; %>
+                            <% bookingDetails.forEach(function(movieBooking){ %>
+                                <tr>
+                                    <td>
+                                        <%=++i%>
+                                    </td>
+                                    <td>
+                                        <%=movieBooking.UserName%>
+                                    </td>
+                                    <td>
+                                        <%=movieBooking.MovieName%>
+                                    </td>
+                                    <td>
+                                        <%=movieBooking.ShowDate%>
+                                    </td>
+                                    <td>
+                                        <%=movieBooking.ShowTime%>
+                                    </td>
+                                    <td>
+                                        <%=movieBooking.BookedSeats%>
+                                    </td>
+                                    <td>
+                                        <%=movieBooking.TotalAmount%>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                    </table>
+                </div>
+
+            </section>
+</body>
+
+</html>
