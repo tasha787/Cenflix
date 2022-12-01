@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/whosthere.css">
+    <title>Cenflix</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Who's There?</h1>
+        <div class="cards">
+            <div class="profile">
+                <div class="roleCard adminRoleCard" id="adminCard"></div>
+                <a href="/admin/signIn" class="profile-name">Admin</a>
+            </div>
+            <div class="profile">
+                <div class="roleCard userRoleCard" id="userCard"></div>
+                <a href="/user/signIn" class="profile-name">User</a>
+            </div>
+        </div>
+        <div class="btn">
+            <a href="/cenflix" class="backBtn">Go Back</a>
+        </div>
+    </div>
+
+    <script>
+        
+        const adminRoleCard = document.getElementById("adminCard");
+        const userRoleCard = document.getElementById("userCard");
+
+        adminRoleCard.addEventListener("click", ()=>{
+            location.href = "/admin/signIn";
+        })
+        userRoleCard.addEventListener("click", ()=>{
+            location.href = "/user/signIn";
+        })
+
+    </script>
+</body>
+</html>
