@@ -1,0 +1,62 @@
+.pending-bookings {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 1.2rem;
+}
+
+.pb-card,
+.pb-heading {
+    display: flex;
+    background-color: #263238;
+    color: white;
+    font-size: large;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 1em;
+    width: 90%;
+    text-align: center;
+    margin: 0.3rem 0;
+}
+
+.pb-heading {
+    border: 3px solid black;
+    font-weight: bold;
+    margin: 1rem 0;
+}
+
+.option {
+    width: 6.25rem;
+}
+
+.id {
+    width: 3.25rem;
+}
+
+.confirm-Btn a,
+.delete-Btn a {
+    text-decoration: none;
+    color: white;
+}
+
+.confirm-Btn,
+.delete-Btn {
+    padding: 0.3em 0.7em;
+    width: 6.25rem;
+    border-radius: 2rem;
+    text-align: center;
+}
+
+.confirm-Btn {
+    background-color: green;
+}
+
+.delete-Btn {
+    background-color: red;
+}
+
+.confirm-Btn:hover,
+.delete-Btn:hover {
+    transform: scale(1.1);
+}
