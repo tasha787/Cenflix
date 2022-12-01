@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/partials/adminPanel.css">
+    <link rel="stylesheet" href="/css/admin/uploadSlider.css">
+    <script src="/js/adminPanel.js" defer></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="upload-slider">
+        <%- include("../partials/adminPanel") %>
+            <section class="home-section">
+                <div class="home-content">
+                    <i class='bx bx-menu'></i>
+                    <span class="text">Cenflix | Upload Slider</span>
+                </div>
+                <div class="upload-form">
+                    <form action="/admin/uploadSlider" method="POST" enctype="multipart/form-data">
+                        <span>Add Slider-1</span><br><input type="file" name="slider-1" required><br>
+                        <span>Add Slider-2</span><br><input type="file" name="slider-2" required><br>
+                        <span>Add Slider-3</span><br><input type="file" name="slider-3" required><br>
+                        <input type="submit" value="Upload Slider">
+                    </form>
+                </div>
+            </section>
+</body>
+
+</html>

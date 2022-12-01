@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/partials/adminPanel.css">
+    <link rel="stylesheet" href="/css/admin/viewUsers.css">
+    <link rel="stylesheet" href="/css/partials/filters.css">
+    <script src="/js/adminPanel.js" defer></script>
+    <script src="/js/searching.js" defer></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="upload-slider">
+        <%- include("../partials/adminPanel") %>
+            <section class="home-section">
+                <div class="home-content">
+                    <i class='bx bx-menu'></i>
+                    <span class="text">Cenflix | Featured Movies History</span>
+                </div>
+                <div class="users-data">
+                    <div class="filters">
+                        <div class="selectBox">
+                            <select name="movies" id="movies">
+                                <option value="3-Idiots">3-Idiots</option>
+                                <option value="Maula Jatt">Maula Jatt</option>
+                                <option value="PK">PK</option>
+                            </select>
+                        </div>
+                        <div class="searchBox">
+                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names...">
+                        </div>
+                    </div>
+                    <table id="myTable">
+                        <tr>
+                            <th>MovieID</th>
+                            <th>MovieName</th>
+                            <th>Industry</th>
+                            <th>MoviePG</th>
+                            <th>Genre</th>
+                            <th>Duration</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>TicketPrice</th>
+                        </tr>
+
+                        <% let i=0; %>
+                        <% movieData.forEach(function(movie){ %>
+                            <tr>
+                                <td>
+                                    <%=++i%>
+                                </td>
+                                <td>
+                                    <%=movie.MovieName%>
+                                </td>
+                                <td>
+                                    <%=movie.MovieIndustry%>
+                                </td>
+                                <td>
+                                    <%=movie.ParentalGuidance%>
+                                </td>
+                                <td>
+                                    <%=movie.MovieGenre%>
+                                </td>
+                                <td>
+                                    <%=movie.MovieDuration%>
+                                </td>
+                                <td>
+                                    <%=movie.ShowDate%>
+                                </td>
+                                <td>
+                                    <%=movie.ShowTime%>
+                                </td>
+                                <td>
+                                    <%=movie.TicketPrice%>rs
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </table>
+                </div>
+
+            </section>
+</body>
+
+</html>

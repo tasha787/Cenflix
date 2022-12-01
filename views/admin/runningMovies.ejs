@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/a3aad2d743.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/partials/adminPanel.css">
+    <link rel="stylesheet" href="/css/admin/runningMovies.css">
+    <script src="/js/adminPanel.js" defer></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="upload-slider">
+        <%- include("../partials/adminPanel") %>
+            <section class="home-section">
+                <div class="home-content">
+                    <i class='bx bx-menu'></i>
+                    <span class="text">Cenflix | Movies | Running Movies</span>
+                </div>
+                <div class="movie-cards">
+                    <% movieData.forEach(function(movie){ %>
+                        <div class="wrapper">
+                            <div class="main_card">
+                                <div class="card_left">
+                                    <div class="card_datails">
+                                        <h1>Movie : <%=movie.MovieName%>
+                                        </h1>
+                                        <div class="card_cat">
+                                            <p class="industry">
+                                                <%=movie.MovieIndustry%>
+                                            </p>
+                                            <p class="PG">PG - <%=movie.ParentalGuidance%>
+                                            </p>
+                                            <p class="genre">
+                                                <%=movie.MovieGenre%>
+                                            </p>
+                                            <p class="time">
+                                                <%=movie.MovieDuration%>
+                                            </p>
+                                        </div>
+                                        <div class="dtp">
+                                            <span><b>Show Date:</b>
+                                                <%=movie.ShowDate%>
+                                            </span> <b>|</b>
+                                            <span><b>Show Time:</b>
+                                                <%=movie.ShowTime%>
+                                            </span><br>
+                                            <span><b>Ticket Price:</b>
+                                                <%=movie.TicketPrice%> rs
+                                            </span><br>
+                                        </div>
+                                        <div class="social-btn">
+                                            <button>
+                                                <a href="/admin/editMovie/<%=movie.MovieID%>"><i class="fas fa-edit"></i> &nbsp; EDIT
+                                                    MOVIE</a>
+                                            </button>
+                                            <button>
+                                                <a href="/admin/featuredMovie/<%=movie.MovieID%>"><i class="fas fa-check"></i> &nbsp; FEATURED
+                                                    MOVIE</a>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card_right">
+                                    <div class="img_container">
+                                        <img src="/images/movies/<%=movie.MoviePoster%>" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+            </section>
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/partials/adminPanel.css">
+    <link rel="stylesheet" href="/css/admin/pendingBookings.css">
+    <link rel="stylesheet" href="/css/partials/filters.css">
+
+    <script src="/js/adminPanel.js" defer></script>
+    <script src="/js/pendingBookingsSearch.js" defer></script>
+
+    <title>Document</title>
+    <style>
+        .filters {
+            width: 92.5%;
+        }
+
+        .searchBox {
+            margin-top: 1rem;
+        }
+
+        .searchBox {
+            width: 65%;
+        }
+
+        .selectBox {
+            width: 30%;
+            margin-top: auto;
+        }
+
+        #myInput {
+            background-image: url('../../images/resources/searchIcon.png');
+            background-position: 8px 13px;
+            background-repeat: no-repeat;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #263238;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="upload-slider">
+        <%- include("../partials/adminPanel") %>
+            <section class="home-section">
+                <div class="home-content">
+                    <i class='bx bx-menu'></i>
+                    <span class="text">Cenflix | Bookings | Pending Bookings</span>
+                </div>
+                <div class="filters">
+                    <div class="selectBox">
+                        <select name="movies" id="movies">
+                            <option value="3-Idiots">3-Idiots</option>
+                            <option value="Maula Jatt">Maula Jatt</option>
+                            <option value="PK">PK</option>
+                        </select>
+                    </div>
+                    <div class="searchBox">
+                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names...">
+                    </div>
+                </div>
+                <div class="pending-bookings">
+                    <div class="pb-heading">
+                        <div class="pb-Id id">ID</div>
+                        <div class="userName option">Name</div>
+                        <div class="movieName option">MovieName</div>
+                        <div class="showDate option">ShowDate</div>
+                        <div class="showTime option">ShowTime</div>
+                        <div class="totalSeatsBooked option">BookedSeats</div>
+                        <div class="totalAmount option">TotalAmount</div>
+                        <div class="confirmBtn option">Confirm</div>
+                        <div class="deleteBtn option">Delete</div>
+                    </div>
+                    <% let i=0; %>
+                        <% bookingDetails.forEach(function(movieBooking){ %>
+                            <div class="pb-card myTable">
+                                <div class="pb-Id id tr">
+                                    <%=++i%>
+                                </div>
+                                <div class="userName option tr">
+                                    <%=movieBooking.UserName%>
+                                </div>
+                                <div class="movieName option tr">
+                                    <%=movieBooking.MovieName%>
+                                </div>
+                                <div class="showDate option tr">
+                                    <%=movieBooking.ShowDate%>
+                                </div>
+                                <div class="showTime option tr">
+                                    <%=movieBooking.ShowTime%>
+                                </div>
+                                <div class="totalSeatsBooked option tr">
+                                    <%=movieBooking.BookedSeats%>
+                                </div>
+                                <div class="totalAmount option tr">
+                                    <%=movieBooking.TotalAmount%>
+                                </div>
+                                <div class="confirm-Btn option tr">
+                                    <a href="/admin/confirmBooking/?MovieID=<%=movieBooking.MovieID%>&UserName=<%=movieBooking.UserName%>">Confirm</a>
+                                </div>
+                                <div class="delete-Btn tr">
+                                    <a href="/admin/deleteBooking/?MovieID=<%=movieBooking.MovieID%>&UserName=<%=movieBooking.UserName%>">Delete</a>
+                                </div>
+                            </div>
+                        <%})%>
+                </div>
+            </section>
+</body>
+
+</html>
