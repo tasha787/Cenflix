@@ -149,6 +149,98 @@ const displayHomePage = (req, res) => {
     });
 }
 
+const DisplayBookMovie = (req, res) => {
+    const MovieID = req.params.MovieID;
+
+    let seats = "";
+
+    sequelize.sync().then(() => {
+        bookings.findAll({
+            where: {
+                MovieID: MovieID
+            },
+            attributes: ['BookedSeats'],
+        }).then(BookedSeats => {
+            if (BookedSeats) {
+                seats = BookedSeats;
+            }
+            else {
+                seats = "";
+            }
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+
+    // ========================================================================//
+
+    sequelize.sync().then(() => {
+        movie.findOne({
+            where: {
+                MovieID: MovieID
+            }
+        }).then(movie => {
+            if (movie) {
+                res.render("user/bookMovie", { movie: movie, seats: seats });
+            }
+            else {
+                res.send("Invalid Credientials");
+            }
+
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+}
+
+const BookMovie = (req, res) => {
+    const MovieID = req.query.MovieID;
+    const Seats = (req.query.seats).split(" ");
+    const userName = req.session.user.username;
+
+    sequelize.sync().then(() => {
+        movie.findOne({
+            where: {
+                MovieID: MovieID
+            }
+        }).then(MovieData => {
+            if (MovieData) {
+                Seats.forEach(function (seat) {
+                    bookings.create({
+                        UserName: userName,
+                        MovieID: MovieData.MovieID,
+                        MovieName: MovieData.MovieName,
+                        ShowDate: MovieData.ShowDate,
+                        ShowTime: MovieData.ShowTime,
+                        BookedSeats: seat,
+                        TotalAmount: MovieData.TicketPrice,
+                        BookingStatus: "Pending",
+                        MovieStatus: "Running"
+                    }).then(resp => {
+                    }).catch((error) => {
+                        console.error('Failed to create a new record : ', error);
+                    });
+                })
+                res.render("user/printTicket", { MovieData: MovieData, userName: userName, seats: req.query.seats });
+            }
+            else {
+                res.send("Invalid Credientials");
+            }
+
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+}
 
 module.exports = {
     signIn,
@@ -156,5 +248,7 @@ module.exports = {
     sendVerificationCode,
     verifyCode,
     sendFeedBack,
-    displayHomePage
+    displayHomePage,
+    DisplayBookMovie,
+    BookMovie
 }
