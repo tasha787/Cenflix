@@ -104,9 +104,57 @@ const verifyCode = (req, res) => {
     }
 }
 
+const sendFeedBack = (req, res) => {
+    const userName = req.session.user.username;
+    const type = req.body.feedBackType;
+    const feedBackMsg = req.body.feedBackMsg;
+
+    sequelize.sync().then(() => {
+        console.log('feedBack table created successfully!');
+
+        feedBack.create({
+            UserName: userName,
+            Type: type,
+            FeedBackMsg: feedBackMsg
+        }).then(resp => {
+            res.redirect("/user/homePage");
+        }).catch((error) => {
+            console.error('Failed to create a new record : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+
+}
+
+const displayHomePage = (req, res) => {
+
+    sequelize.sync().then(() => {
+        slider.findAll().then(slider => {
+            movie.findAll({
+                where: {
+                    MovieStatus: "Running"
+                }
+            }).then(movie => {
+                res.render("user/homePage", { slider: slider, movieData: movie });
+            }).catch((error) => {
+                console.error('Failed to retrieve data : ', error);
+            });
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+}
+
+
 module.exports = {
     signIn,
     signUp,
     sendVerificationCode,
-    verifyCode
+    verifyCode,
+    sendFeedBack,
+    displayHomePage
 }
