@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a3aad2d743.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/user/bookMovie.css">
+    <link rel="stylesheet" href="/css/partials/footer.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <nav class="navBar">
+        <img src="/images/resources/cenflixLogo.png" alt="" height="30px" width="120px">
+        <div class="navLinks">
+            <a href="/user/homePage">Home</a>
+            <a href="/user/aboutUs">About Us</a>
+            <a href="/user/contactUs">Contact Us</a>
+            <a href="/user/logOut">LogOut</a>
+        </div>
+    </nav>
+    <div class="bg-picture">
+        <div class="movie-content">
+            <div class="movie-poster">
+                <img src="/images/movies/<%=movie.MoviePoster%>" alt="">
+            </div>
+            <div class="movie-description">
+                <h2>
+                    <%=movie.MovieName%>
+                </h2>
+                <div class="description">
+                    <div class="movie-type">
+                        <%=movie.MovieGenre%>
+                    </div>
+                    <div class="movie-duration">
+                        <%=movie.MovieDuration%>
+                    </div>
+                    <div class="movie-wood">
+                        <%=movie.MovieIndustry%>
+                    </div>
+                </div>
+                <a class="trailer-btn" href="<%=movie.MovieTrailer%>" target="_blank">Watch Trailer &nbsp; <i
+                        class="fa-solid fa-play"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <section class="book-ticket">
+        <div class="left-box">
+            <div class="order-summary">
+                ORDER SUMMARY
+            </div>
+            <div class="movie-detail">
+                <h2>
+                    <%=movie.MovieName%>
+                </h2>
+                <span> Show Data: <%=movie.ShowDate%></span><br>
+                <span> Cinema: The Cenflix Cinema Lahore</span><br>
+                <span> Show Time: <%=movie.ShowTime%></span><br>
+                <h3>Selected Seats</h3>
+                <div class="selected-seats" id="seatNo"></div>
+            </div>
+            <hr>
+            <div class="ticket-detail">
+                <span> Ticket Price: RS: <span id="ticketPrice">
+                        <%=movie.TicketPrice%>
+                    </span></span><br>
+                <span> Total Tickets: <span id="count"> 1 </span></span><br>
+                <span> Discount: Rs.00</span><br>
+                <span>Service Charges: Rs.0</span>
+            </div>
+            <div class="grand-total">
+                Grand Total: RS:<span id="total">500</span>
+            </div>
+        </div>
+        <div class="right-box">
+            <div class="cinema-seats-visualization">
+                <div class="container">
+                    <div class="screen-text">SCREEN THIS WAY</div>
+                    <div class="screen"></div>
+                    <div class="all-seats">
+                        <% for(let i=0; i<10; i++){ %>
+                            <div class="row">
+                                <% for(let j=0; j<24; j++){ %>
+                                    <% if (seats.filter(e=> e.BookedSeats == `R${i+1}C${j+1}`).length > 0) { %>
+                                        <div class="seat occupied" name="R<%=i+1%>C<%=j+1%>"></div>
+                                        <%} else {%>
+                                            <div class="seat" name="R<%=i+1%>C<%=j+1%>"></div>
+                                            <%}%>
+                                                <%}%>
+                            </div>
+                            <%}%>
+                    </div>
+                </div>
+                <ul class="showcase">
+                    <li>
+                        <div class="seat"></div>
+                        <small>N/A</small>
+                    </li>
+                    <li>
+                        <div class="seat selected"></div>
+                        <small>Selected</small>
+                    </li>
+                    <li>
+                        <div class="seat occupied"></div>
+                        <small>Occupied</small>
+                    </li>
+                </ul>
+                <div class="btn" id="btn">
+                    <a href="#" class="bookMovie-btn" id="mybtn">Confirm Booking</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const container = document.querySelector(".container");
+        const seats = document.querySelectorAll(".row .seat:not(occupied)");
+        const count = document.getElementById("count");
+        const total = document.getElementById("total");
+        const seatNo = document.getElementById("seatNo");
+        const btn = document.getElementById("btn");
+        console.log(btn);
+
+        let ticketPrice = +document.getElementById("ticketPrice").innerText;
+
+        //Update the total count:
+        function selectUpdateCount() {
+            const selectSeats = document.querySelectorAll(".row .seat.selected");
+            const selectSeatCount = selectSeats.length;
+            count.innerText = selectSeatCount;
+            total.innerText = selectSeatCount * ticketPrice;
+        }
+
+        //Seat clicked event
+        container.addEventListener("click", (e) => {
+            if (
+                e.target.classList.contains("seat") &&
+                !e.target.classList.contains("occupied")
+            ) {
+                if (seatNo.innerText.includes(e.target.getAttribute('name'))) {
+                    e.target.classList.toggle("selected");
+                    console.log(e.target.getAttribute('name'));
+                    seatNo.innerText = seatNo.innerText.replace(e.target.getAttribute('name'), '');
+                }
+                else {
+                    e.target.classList.toggle("selected");
+                    const SeatNum = e.target.getAttribute('name');
+                    if(seatNo.innerText == "")
+                    {
+                        seatNo.innerText += SeatNum ;
+                    }
+                    else
+                    {
+                        seatNo.innerText += " " + SeatNum;
+                    }
+                }
+                selectUpdateCount();
+            }
+        });
+
+        selectUpdateCount();
+
+        btn.addEventListener("click", () => {
+            if (seatNo.innerText == "") {
+                alert("Please Select Any Seat First! ");
+            }
+            else {
+                const MovieID = location.href.substring(location.href.lastIndexOf('/') + 1);
+                location.href = `/user/printTicket/?MovieID=${MovieID}&seats=${seatNo.innerText}`;
+                seatNo.innerText = "";
+                console.log(MovieID);
+                console.log(btn.href);
+            }
+        });
+
+    </script>
+</body>
+
+</html>
