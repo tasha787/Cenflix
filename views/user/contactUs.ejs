@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/user/contactUs.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <nav class="navBar">
+        <img src="/images/resources/cenflixLogo.png" alt="" height="30px" width="120px">
+        <div class="navLinks">
+            <a href="/user/homePage">Home</a>
+            <a href="/user/aboutUs">About Us</a>
+            <a href="/user/contactUs" class="temp">Contact Us</a>
+            <a href="/user/logOut">LogOut</a>
+        </div>
+    </nav>
+    <section class="contact-us">
+        <div class="left-box">
+            <div class="contact-box">
+                <div class="icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div class="content">
+                    <div class="heading">
+                        Adress
+                    </div>
+                    <div class="address">
+                        Fast National University <br> Chiniot Road Fsd
+                    </div>
+                </div>
+            </div>
+            <div class="contact-box">
+                <div class="icon">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <div class="content">
+                    <div class="heading">
+                        Phone
+                    </div>
+                    <div class="address">
+                        +92 3366878699
+                    </div>
+                </div>
+            </div>
+            <div class="contact-box">
+                <div class="icon">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="content">
+                    <div class="heading">
+                        Email
+                    </div>
+                    <div class="address">
+                        dawoodusman370@gmail.com
+                    </div>
+                </div>
+            </div>
+            <div class="contact-box">
+                <div class="icon">
+                    <i class="fa-solid fa-fax"></i>
+                </div>
+                <div class="content">
+                    <div class="heading">
+                        Fax
+                    </div>
+                    <div class="address">
+                        12-345-6789
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-box">
+            <div class="contact-form">
+                <h1>Send Message</h1>
+                <form action="/user/contactUs" name="Login-Form" method="POST">
+                    <input type="text" name="Username" placeholder="Your Name" value="<%=userName%>" class="i-box"
+                        readonly><br>
+                    <select name="feedBackType" class="feedBackType" required>
+                        <option selected="selected" value="">Message Type</option>
+                        <option value="FeedBack">FeedBack</option>
+                        <option value="Suggestion">Suggestion</option>
+                        <option value="Query">Query</option>
+                        <option value="Complaint">Complaint</option>
+                    </select><br>
+                    <textarea name="feedBackMsg" id="" cols="30" rows="10" placeholder="Enter Your Message Here..."
+                        required></textarea><br>
+                    <input type="submit" value="Send"><br>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
