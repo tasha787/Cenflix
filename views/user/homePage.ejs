@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/user/homePage.css">
+    <link rel="stylesheet" href="/css/partials/footer.css">
+    <script src="https://kit.fontawesome.com/a3aad2d743.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+
+<body>
+
+    <nav class="navBar">
+        <img src="/images/resources/cenflixLogo.png" alt="" height="30px" width="120px">
+        <div class="navLinks">
+            <a href="/user/homePage" class="temp">Home</a>
+            <a href="/user/aboutUs">About Us</a>
+            <a href="/user/contactUs">Contact Us</a>
+            <a href="/user/logOut">LogOut</a>
+        </div>
+    </nav>
+    <section class="silder">
+        <div class="slideshow-container">
+
+            <div class="mySlides fade">
+                <div class="numbertext">1 / 3</div>
+                <img src="/images/slider/<%=slider[0].SliderImage%>" style="width:100%; height: 100%;">
+                <div class="text">Caption Text</div>
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">2 / 3</div>
+                <img src="/images/slider/<%=slider[1].SliderImage%>" style="width:100%; height: 100%;">
+                <div class="text">Caption Two</div>
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">3 / 3</div>
+                <img src="/images/slider/<%=slider[2].SliderImage%>" style="width:100%; height: 100%;">
+                <div class="text">Caption Three</div>
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <br>
+
+        <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    </section>
+
+    <section class="filters">
+        <div class="movieFilters">
+            <div class="selectOption">
+                <select name="movieIndustry" class="movieIndustry">
+                    <option selected="selected" value="">By Industry</option>
+                    <option value="word">BollyWood</option>
+                    <option value="hashtag">HollyWood</option>
+                    <option value="hashtag">LollyWood</option>
+                </select>
+            </div>
+            <div class="selectOption">
+                <select name="movieGenre" class="movieGenre">
+                    <option selected="selected" value="">By Genre</option>
+                    <option value="1">Action</option>
+                    <option value="3">Romance</option>
+                    <option value="4">thriller</option>
+                    <option value="8">Comedy</option>
+                    <option value="9">Adventure</option>
+                    <option value="10">Horror</option>
+                    <option value="11">Adult</option>
+                    <option value="12">Drama</option>
+                    <option value="13">Sports</option>
+                    <option value="14">Family</option>
+                    <option value="15">Music</option>
+                    <option value="16">Crime</option>
+                    <option value="17">Animation</option>
+                    <option value="18">Sci-Fi</option>
+                    <option value="19">Biography</option>
+                    <option value="20">Documentary</option>
+                    <option value="21">History</option>
+                    <option value="22">War</option>
+                    <option value="23">Mystery</option>
+                    <option value="24">Fantasy </option>
+                    <option value="25">Western </option>
+                    <option value="26">Psycho</option>
+                </select>
+            </div>
+
+            <div class="selectOption">
+                <form role="search" id="form">
+                    <input type="search" id="query" name="q" placeholder="Search..."
+                        aria-label="Search through site content">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="movies">
+        <div class="movieCards">
+            <% movieData.forEach(function(movie){ %>
+                <div class="card">
+                    <img src="/images/movies/<%=movie.MoviePoster%>" alt="Avatar" style="width:100%; height: 70%;">
+                    <div class="container">
+                        <h3><b>
+                                <%=movie.MovieName%>
+                            </b></h3>
+                        <div class="btn">
+                            <a href="/user/bookMovie/<%=movie.MovieID%>" class="backBtn">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+        </div>
+    </section>
+
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
+
+</body>
+
+</html>
