@@ -503,6 +503,54 @@ const displayDashBoard = (req, res) => {
     });
 }
 
+const displayRunningMoviesBookings = (req, res) => {
+
+    let admin = "";
+    const name = req.session.admin.username;
+    name == "Dawood_Usman" ? admin = "Admin 1.0" : admin = "Admin 2.0";
+
+    sequelize.sync().then(() => {
+        booking.findAll({
+            where: {
+                BookingStatus: "Confirmed",
+                MovieStatus: "Running"
+            }
+        }).then(bookingDetails => {
+            res.render("admin/runningMoviesBookings", { bookingDetails: bookingDetails, Name: name, Admin: admin });
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+
+}
+
+const displayFeaturedMoviesBookings = (req, res) => {
+
+    let admin = "";
+    const name = req.session.admin.username;
+    name == "Dawood_Usman" ? admin = "Admin 1.0" : admin = "Admin 2.0";
+
+    sequelize.sync().then(() => {
+        booking.findAll({
+            where: {
+                BookingStatus: "Confirmed",
+                MovieStatus: "Featured"
+            }
+        }).then(bookingDetails => {
+            res.render("admin/runningMoviesBookings", { bookingDetails: bookingDetails, Name: name, Admin: admin });
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+
+}
+
 module.exports = {
     SignIn,
     displayDashBoard,
@@ -519,5 +567,7 @@ module.exports = {
     deleteBooking,
     uploadSlider,
     displayGenerateReport,
-    generateReport
+    generateReport,
+    displayRunningMoviesBookings,
+    displayFeaturedMoviesBookings
 }
