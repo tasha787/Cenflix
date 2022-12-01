@@ -269,6 +269,74 @@ const featuredMovie = (req, res) => {
     });
 }
 
+const displayPendingMovies = (req, res) => {
+
+    let admin = "";
+    const name = req.session.admin.username;
+    name == "Dawood_Usman" ? admin = "Admin 1.0" : admin = "Admin 2.0";
+
+    sequelize.sync().then(() => {
+        booking.findAll({
+            attributes: ['MovieID', 'UserName', 'MovieName', 'ShowDate', 'ShowTime', [sequelize.fn('count', sequelize.col('TotalAmount')), 'BookedSeats'], [sequelize.fn('sum', sequelize.col('TotalAmount')), 'TotalAmount']],
+            group: ["UserName", "MovieID"],
+            where: {
+                BookingStatus: "Pending",
+                MovieStatus: "Running"
+            }
+        }).then(bookingDetails => {
+            res.render("admin/pendingBookings", { bookingDetails: bookingDetails, Name: name, Admin: admin });
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+
+}
+
+
+const confirmBooking = (req, res) => {
+    sequelize.sync().then(() => {
+        booking.update({
+            BookingStatus: "Confirmed",
+        },
+            {
+                where: {
+                    MovieID: req.query.MovieID,
+                    UserName: req.query.UserName
+                }
+            }
+        ).then(resp => {
+            res.redirect("/admin/pendingBookings");
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+}
+
+const deleteBooking = (req, res) => {
+    sequelize.sync().then(() => {
+        Book.destroy({
+            where: {
+                MovieID: req.query.MovieID,
+                UserName: req.query.UserName
+            }
+        }).then(resp => {
+            res.redirect("/admin/pendingBookings");
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+}
+
+
 module.exports = {
     SignIn,
     displayUIAccordingly,
@@ -278,6 +346,8 @@ module.exports = {
     addMovie,
     EditMovie,
     displayRunningMovies,
-    featuredMovie
-    
+    featuredMovie,
+    displayPendingMovies,
+    confirmBooking,
+    deleteBooking
 }
