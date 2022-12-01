@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/user/printTicket.css">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navBar">
+        <img src="/images/resources/cenflixLogo.png" alt="" height="30px" width="120px">
+        <div class="navLinks">
+            <a href="/user/homePage">Home</a>
+            <a href="/user/aboutUs">About Us</a>
+            <a href="/user/contactUs">Contact Us</a>
+            <a href="/user/logOut">LogOut</a>
+        </div>
+    </nav>
+    <div class="instructions-note">
+        <span><b>Note: You can Download your movie ticket in Pdf form from here. You are requested to bring your ticket along with yourself in soft or hard form & reach at cinema atleast 30 minutes before movie show, otherwise your tickets will be cancelled. </b></span>
+    </div>
+    <div class="ticket-container">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td colspan="4">CENFLIX</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4">* * * * * * * * *</td>
+                </tr>
+                <tr>
+                    <td colspan="4"><%=MovieData.MovieName%></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><%=MovieData.ShowDate%></td>
+                    <td colspan="2"><%=MovieData.ShowTime%></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><%=userName%></td>
+                    <td rowspan="2"><%=MovieData.TicketPrice%></td>
+                    <td rowspan="2"><%=seats%></td>
+                </tr>
+                <tr>
+                    <td colspan="2">TN: 9p14vr2lg</td>
+                </tr>    
+            </tbody>
+        </table>
+    </div>
+    <div class="btn">
+        <a href="" class="backBtn">Print Ticket</a>
+    </div>
+</body>
+</html>
