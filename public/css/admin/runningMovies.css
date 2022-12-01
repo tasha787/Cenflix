@@ -1,0 +1,100 @@
+
+.social-btn button a {
+	text-decoration: none;
+	color: #263238;
+}
+
+.main_card {
+	color: #fff;
+	width: 760px;
+	height: 390px;
+	margin: 50px auto;
+	display: flex;
+	max-width: 770px;
+	background: #263238;
+	box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+}
+
+.card_left {
+	width: 70%;
+}
+
+.card_datails {
+	width: 90%;
+	padding: 3.5em 30px;
+	margin-top: -25px;
+}
+
+.card_datails h1 {
+	font-size: 2.3rem;
+}
+
+.card_right img {
+	height: 390px;
+	width: 100%;
+	border-radius: 2px;
+}
+
+.card_right {
+	border-radius: 2px;
+}
+
+.card_cat {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.PG,
+.industry,
+.genre,
+.time {
+    margin: 1rem 0;
+	color: fff;
+	padding: 10px;
+	font-weight: bold;
+	border-radius: 15px;
+}
+
+.industry {
+	border: 1px solid white;
+	border-radius: 25px;
+	background: whitesmoke;
+	color: #263238;
+	box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+}
+
+.dtp{
+    margin: 0.5rem 0;
+    line-height: 2.5rem;
+    font-size: 1.1rem;
+}
+
+.disc {
+	font-weight: 100;
+	line-height: 27px;
+}
+
+
+.social-btn {
+	margin-left: -10px;
+}
+
+.social-btn button {
+	color: #263238;
+    font-weight: bolder;
+	border: 2px solid whitesmoke;
+	padding: 20px;
+	outline: none;
+	font-size: 14px;
+	margin-top: 10px;
+	margin-left: 10px;
+	background: whitesmoke;
+	border-radius: 32px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+	transition: 200ms ease-in-out;
+}
+
+.social-btn button:hover {
+	transform: scale(1.1);
+}
