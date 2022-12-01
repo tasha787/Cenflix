@@ -439,8 +439,73 @@ const generateReport = (req, res) => {
         
 }
 
+const displayDashBoard = (req, res) => {
+
+    let admin = "";
+    const name = req.session.admin.username;
+    name == "Dawood_Usman" ? admin = "Admin 1.0" : admin = "Admin 2.0";
+
+    sequelize.sync().then(() => {
+        userCredentials.findOne({
+            attributes: [[sequelize.fn('count', sequelize.col('UserName')), 'Users']]
+        }).then(usersData => {
+            movie.findOne({
+                attributes: [[sequelize.fn('count', sequelize.col('MovieID')), 'RunningMovies']],
+                where: {
+                    MovieStatus: "Running"
+                }
+            }).then(RunningMovies => {
+                movie.findOne({
+                    attributes: [[sequelize.fn('count', sequelize.col('MovieID')), 'FeaturedMovies']],
+                    where: {
+                        MovieStatus: "Featured"
+                    }
+                }).then(FeaturedMovies => {
+                    booking.findOne({
+                        attributes: [[sequelize.fn('sum', sequelize.col('TotalAmount')), 'Earnings']],
+                        where: {
+                            BookingStatus: "Confirmed"
+                        }
+                    }).then(Earnings => {
+                        booking.findOne({
+                            attributes: [[sequelize.fn('count', sequelize.col('UserName')), 'Pendings']],
+                            where: {
+                                BookingStatus: "Pending"
+                            }
+                        }).then(PendingMovies => {
+                            visitors.findOne({
+                                attributes: ["VisitorCount"],
+                                where: {
+                                    id: 1
+                                }
+                            }).then(VisitorCount => {
+                                res.render("admin/dashBoard", { usersData: usersData, RunningMovies:RunningMovies, FeaturedMovies:FeaturedMovies, Earnings:Earnings,PendingMovies:PendingMovies, VisitorCount:VisitorCount, Name: name, Admin: admin });
+                            }).catch((error) => {
+                                console.error('Failed to retrieve data : ', error);
+                            });
+                        }).catch((error) => {
+                            console.error('Failed to retrieve data : ', error);
+                        });
+                    }).catch((error) => {
+                        console.error('Failed to retrieve data : ', error);
+                    });
+                }).catch((error) => {
+                    console.error('Failed to retrieve data : ', error);
+                });
+            }).catch((error) => {
+                console.error('Failed to retrieve data : ', error);
+            });
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+}
+
 module.exports = {
     SignIn,
+    displayDashBoard,
     displayUIAccordingly,
     displayCustomers,
     displayFeedBack,
