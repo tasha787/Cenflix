@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/partials/adminPanel.css">
+    <link rel="stylesheet" href="/css/admin/addMovie.css">
+    <script src="/js/adminPanel.js" defer></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="upload-slider">
+        <%- include("../partials/adminPanel") %>
+            <section class="home-section">
+                <div class="home-content">
+                    <i class='bx bx-menu'></i>
+                    <span class="text">Cenflix | Movies | Edit Movie</span>
+                </div>
+                <div class="upload-form">
+                    <form action="/admin/editMovie" method="POST" enctype="multipart/form-data">
+                        <div class="input-box">
+                            <label for="movieID">Movie ID</label><br>
+                            <input type="text" id="movieID" name="movieID" placeholder="Enter Movie ID" value="<%=movie.MovieID%>" readonly>
+                        </div>
+                        <div class="input-box">
+                            <label for="movieName">Movie Name</label><br>
+                            <input type="text" id="movieName" name="movieName" placeholder="Enter Movie Name" value="<%=movie.MovieName%>" required>
+                        </div><br>
+                        <div class="input-box">
+                            <label for="movieStatus">Movie Status</label><br>
+                            <select name="movieStatus" id="movieStatus" name="" class="movieStatus" required>
+                                <option value="Running" <%=movie.MovieStatus=='Running' ? 'selected' : '' %>>Running</option>
+                                <option value="Featured" <%=movie.MovieStatus=='Featured' ? 'selected' : '' %>>Featured</option>
+                            </select>
+                        </div>
+                        <div class="input-box">
+                            <label for="moviePG">Parental Guidance</label><br>
+                            <select id="moviePG" name="moviePG" class="moviePG"
+                                required>
+                                <option value="13" <%=movie.ParentalGuidance=='13' ? 'selected' : '' %>>13+</option>
+                                <option value="14" <%=movie.ParentalGuidance=='14' ? 'selected' : '' %>>14+</option>
+                                <option value="15" <%=movie.ParentalGuidance=='15' ? 'selected' : '' %>>15+</option>
+                                <option value="16" <%=movie.ParentalGuidance=='16' ? 'selected' : '' %>>16+</option>
+                                <option value="17" <%=movie.ParentalGuidance=='17' ? 'selected' : '' %>>17+</option>
+                                <option value="18" <%=movie.ParentalGuidance=='18' ? 'selected' : '' %>>18+</option>
+                            </select>
+                        </div><br>
+                        <div class="input-box">
+                            <label for="movieIndustry">Movie Industry</label><br>
+                            <select name="movieIndustry" id="movieIndustry" name="movieIndustry" class="movieIndustry"
+                                required>
+                                <option value="BollyWood" <%=movie.MovieIndustry=='BollyWood' ? 'selected' : '' %>>BollyWood</option>
+                                <option value="HollyWood" <%=movie.MovieIndustry=='HollyWood' ? 'selected' : '' %>>HollyWood</option>
+                                <option value="LollyWood" <%=movie.MovieIndustry=='LollyWood' ? 'selected' : '' %>>LollyWood</option>
+                            </select>
+                        </div>
+                        <div class="input-box">
+                            <label for="movieGenre">Movie Genre</label><br>
+                            <select name="movieGenre" id="movieGenre" name="movieGenre" class="movieGenre" required>
+                                <option value="Action" <%=movie.MovieGenre=='Action' ? 'selected' : '' %>>Action</option>
+                                <option value="Romance" <%=movie.MovieGenre=='Romance' ? 'selected' : '' %>>Romance</option>
+                                <option value="thriller" <%=movie.MovieGenre=='thriller' ? 'selected' : '' %>>thriller</option>
+                                <option value="Comedy" <%=movie.MovieGenre=='Comedy' ? 'selected' : '' %>>Comedy</option>
+                                <option value="Adventure" <%=movie.MovieGenre=='Adventure' ? 'selected' : '' %>>Adventure</option>
+                                <option value="Horror" <%=movie.MovieGenre=='Horror' ? 'selected' : '' %>>Horror</option>
+                                <option value="Adult" <%=movie.MovieGenre=='Adult' ? 'selected' : '' %>>Adult</option>
+                                <option value="Drama" <%=movie.MovieGenre=='Drama' ? 'selected' : '' %>>Drama</option>
+                                <option value="Sports" <%=movie.MovieGenre=='Sports' ? 'selected' : '' %>>Sports</option>
+                                <option value="Family" <%=movie.MovieGenre=='Family' ? 'selected' : '' %>>Family</option>
+                                <option value="Music" <%=movie.MovieGenre=='Music' ? 'selected' : '' %>>Music</option>
+                                <option value="Crime" <%=movie.MovieGenre=='Crime' ? 'selected' : '' %>>Crime</option>
+                                <option value="Animation" <%=movie.MovieGenre=='Animation' ? 'selected' : '' %>>Animation</option>
+                                <option value="Sci-Fi" <%=movie.MovieGenre=='Sci-Fi' ? 'selected' : '' %>>Sci-Fi</option>
+                                <option value="Biography" <%=movie.MovieGenre=='Biography' ? 'selected' : '' %>>Biography</option>
+                                <option value="Documentary" <%=movie.MovieGenre=='Documentary' ? 'selected' : '' %>>Documentary</option>
+                                <option value="History" <%=movie.MovieGenre=='History' ? 'selected' : '' %>>History</option>
+                                <option value="War" <%=movie.MovieGenre=='War' ? 'selected' : '' %>>War</option>
+                                <option value="Mystery" <%=movie.MovieGenre=='Mystery' ? 'selected' : '' %>>Mystery</option>
+                                <option value="Fantasy" <%=movie.MovieGenre=='Fantasy' ? 'selected' : '' %>>Fantasy </option>
+                                <option value="Western" <%=movie.MovieGenre=='Western' ? 'selected' : '' %>>Western </option>
+                                <option value="Psycho" <%=movie.MovieGenre=='Psycho' ? 'selected' : '' %>>Psycho</option>
+                            </select>
+                        </div><br>
+                        <div class="input-box">
+                            <label for="movieDuration">Movie Duration</label><br>
+                            <input type="text" id="movieDuration" name="movieDuration"
+                                placeholder="Enter Movie Duration" value="<%=movie.MovieDuration%>" required>
+                        </div>
+                        <div class="input-box">
+                            <label for="movieTrailer">Movie Trailer</label><br>
+                            <input type="url" id="movieTrailer" name="movieTrailer" value="<%=movie.MovieTrailer%>" placeholder="Enter Movie Trailer"
+                                required>
+                        </div><br>
+                        <div class="input-box">
+                            <label for="ticketPrice">Ticket Price</label><br>
+                            <input type="number" id="ticketPrice" name="ticketPrice" placeholder="Enter Ticket Price" value="<%=movie.TicketPrice%>"
+                                required>
+                        </div>
+                        <div class="input-box">
+                            <label for="showDate">Show Date</label><br>
+                            <input type="date" id="showDate" name="showDate" placeholder="Enter Show Date" value="<%=movie.ShowDate%>" required>
+                        </div><br>
+                        <div class="input-box">
+                            <label for="showTime">Show Time</label><br>
+                            <input type="time" id="showTime" name="showTime" placeholder="Enter Show Time" value="<%=movie.ShowTime%>" required>
+                        </div>
+                        <div class="input-box">
+                            <label for="moviePoster">Movie Poster</label><br>
+                            <input type="file" id="moviePoster" name="moviePoster" placeholder="Enter Movie Poster"
+                                required>
+                        </div><br>
+                        <input type="submit" value="Edit Movie">
+                    </form>
+                </div>
+            </section>
+</body>
+
+</html>
