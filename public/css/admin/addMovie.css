@@ -1,0 +1,53 @@
+.upload-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2.5rem auto;
+}
+label{
+    margin: 1rem;
+}
+
+.input-box{
+    display: inline-block;
+    margin: 0.3rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="url"],
+input[type="file"],
+select {
+    width: 20rem;
+    height: 3rem;
+    padding: 1em;
+    margin: 0 1rem;
+}
+
+input[type="file"] {    
+    border: 2px solid #1d1b31;
+}
+
+label {
+    font-weight: bold;
+    color: #1d1b31;
+}
+
+
+input[type="submit"] {
+    background-color: #1d1b31;
+    border: 2px solid #fff;
+    padding: 1em 1.3em;
+    width: 10rem;
+    color: white;
+    border-color: azure;
+    margin: 2rem 17.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+input:focus{
+    border-color: #1d1b31;
+}
