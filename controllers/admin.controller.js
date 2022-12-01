@@ -212,6 +212,63 @@ const addMovie = (req, res) => {
     });
 }
 
+const displayRunningMovies = (req, res) => {
+
+    let admin = "";
+    const name = req.session.admin.username;
+    name == "Dawood_Usman" ? admin = "Admin 1.0" : admin = "Admin 2.0";
+
+    sequelize.sync().then(() => {
+        movie.findAll({
+            where: {
+                MovieStatus: "Running"
+            }
+        }).then(movieData => {
+            res.render("admin/runningMovies", { movieData: movieData, Name: name, Admin: admin });
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+
+}
+
+const featuredMovie = (req, res) => {
+    sequelize.sync().then(() => {
+        movie.update({
+            MovieStatus: "Featured",
+        },
+            {
+                where: {
+                    MovieID: req.params.MovieID
+                }
+            }
+        ).then(resp => {
+            booking.update({
+                MovieStatus: "Featured",
+            },
+                {
+                    where: {
+                        MovieID: req.params.MovieID
+                    }
+                }
+            ).then(resp => {
+                res.redirect("/admin/runningMovies");
+            }).catch((error) => {
+                console.error('Failed to retrieve data : ', error);
+            });
+            res.redirect("/admin/runningMovies");
+        }).catch((error) => {
+            console.error('Failed to retrieve data : ', error);
+        });
+
+    }).catch((error) => {
+        console.error('Unable to create table : ', error);
+    });
+}
+
 module.exports = {
     SignIn,
     displayUIAccordingly,
@@ -219,6 +276,8 @@ module.exports = {
     displayFeedBack,
     DisplayEditMovie,    
     addMovie,
-    EditMovie
+    EditMovie,
+    displayRunningMovies,
+    featuredMovie
     
 }
