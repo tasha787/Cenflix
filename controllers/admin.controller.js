@@ -336,6 +336,31 @@ const deleteBooking = (req, res) => {
     });
 }
 
+const uploadSlider = (req, res) => {
+    if (!req.files) {
+        res.send("No Files Recieved!\n" + JSON.stringify(req.files));
+    }
+    else {
+
+        const slider1 = req.files["slider-1"][0]["filename"];
+        const slider2 = req.files["slider-2"][0]["filename"];
+        const slider3 = req.files["slider-3"][0]["filename"];
+
+        sliderImages = [
+            { SliderImage: slider1 },
+            { SliderImage: slider2 },
+            { SliderImage: slider3 }
+        ];
+
+        slider.sync({ force: true }).then(() => {
+            slider.bulkCreate(sliderImages, { validate: true }).then(() => {
+                res.redirect("/user/homePage");
+            }).catch((err) => { console.log(err); });
+        }).catch((error) => {
+            console.error('Unable to create the table : ', error);
+        });
+    }
+}
 
 module.exports = {
     SignIn,
@@ -349,5 +374,6 @@ module.exports = {
     featuredMovie,
     displayPendingMovies,
     confirmBooking,
-    deleteBooking
+    deleteBooking,
+    uploadSlider
 }
